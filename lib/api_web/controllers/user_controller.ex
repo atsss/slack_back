@@ -2,7 +2,7 @@ defmodule ApiWeb.UserController do
   use ApiWeb, :controller
 
   alias Api.Users
-  alias Api.Users.User
+  alias Api.Users.Guardian
 
   action_fallback ApiWeb.FallbackController
 
@@ -14,7 +14,7 @@ defmodule ApiWeb.UserController do
   def create(conn, %{"user" => user_params}) do
     case Users.create_user(user_params) do
       {:ok, user} ->
-        new_conn = Guardian.Plug.api_sign_in(conn, user, :access)
+        new_conn = Guardian.Plug.sign_in(conn, user)
         jwt = Guardian.Plug.current_token(new_conn)
 
         new_conn

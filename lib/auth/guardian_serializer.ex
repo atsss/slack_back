@@ -1,4 +1,4 @@
-defmodule Api.GuardianSerializer do
+defmodule Api.Users.GuardianSerializer do
   @behaviour Guardian.Serializer
 
   alias Api.Repo

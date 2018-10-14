@@ -1,11 +1,13 @@
 defmodule ApiWeb.SessionController do
   use ApiWeb, :controller
-  alias Api.Session
+
+  alias Api.Repo
+  alias Api.Users.Guardian
 
   def create(conn, params) do
     case authenticate(params) do
       {:ok, user} ->
-        new_conn = Guardian.Plug.api_sign_in(conn, user, :access)
+        new_conn = Guardian.Plug.sign_in(conn, user)
         jwt = Guardian.Plug.current_token(new_conn)
 
         new_conn
@@ -51,7 +53,7 @@ defmodule ApiWeb.SessionController do
   end
 
   defp authenticate(%{"email" => email, "password" => password}) do
-    user = Repo.get_by(Api.User, email: String.downcase(email))
+    user = Repo.get_by(Api.Users.User, email: String.downcase(email))
 
     case check_password(user, password) do
       true -> {:ok, user}
