@@ -3,6 +3,7 @@ defmodule ApiWeb.UserController do
 
   alias Api.Users
   alias Api.Users.User
+  alias Api.Rooms
   alias Api.Guardian
 
   action_fallback ApiWeb.FallbackController
@@ -14,10 +15,12 @@ defmodule ApiWeb.UserController do
     end
   end
 
-  def show(conn, _params) do
-    user = Guardian.Plug.current_resource(conn)
-    conn |> render("user.json", user: user)
+  def rooms(conn, _params) do
+    current_user = Guardian.Plug.current_resource(conn)
+    rooms = Rooms.list_rooms_of(current_user)
+    render(ApiWeb.RoomView, "index.json", rooms: rooms)
   end
+
 
   # def index(conn, _params) do
   #   users = Users.list_users()

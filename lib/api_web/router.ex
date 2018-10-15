@@ -25,6 +25,8 @@ defmodule ApiWeb.Router do
     pipe_through [:api, :jwt_authenticated]
 
     post "/sessions/refresh", SessionController, :refresh
-    get "/my_user", UserController, :show
+    get "/users/:id/rooms", UserController, :rooms
+    resources "/rooms", RoomController, only: [:index, :create]
+    post "/rooms/:id/join", RoomController, :join
   end
 end

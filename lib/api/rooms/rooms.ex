@@ -21,6 +21,10 @@ defmodule Api.Rooms do
     Repo.all(Room)
   end
 
+  def list_rooms_of(current_user) do
+    Repo.all(assoc(current_user, :rooms))
+  end
+
   @doc """
   Gets a single room.
 
