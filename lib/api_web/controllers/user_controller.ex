@@ -18,7 +18,7 @@ defmodule ApiWeb.UserController do
   def rooms(conn, _params) do
     current_user = Guardian.Plug.current_resource(conn)
     rooms = Rooms.list_rooms_of(current_user)
-    render(ApiWeb.RoomView, "index.json", rooms: rooms)
+    render(conn, ApiWeb.RoomView, "index.json", rooms: rooms)
   end
 
 
