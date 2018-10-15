@@ -15,7 +15,6 @@ defmodule ApiWeb.Router do
     pipe_through [:api]
 
     post "/sessions", SessionController, :create
-    post "/sessions/refresh", SessionController, :refresh
     resources "/users", UserController, only: [:create]
 
     # FIXME: 後でやる
@@ -25,6 +24,7 @@ defmodule ApiWeb.Router do
   scope "/api", ApiWeb do
     pipe_through [:api, :jwt_authenticated]
 
+    post "/sessions/refresh", SessionController, :refresh
     get "/my_user", UserController, :show
   end
 end
