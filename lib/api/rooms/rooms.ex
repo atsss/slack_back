@@ -4,6 +4,7 @@ defmodule Api.Rooms do
   """
 
   import Ecto.Query, warn: false
+  import Ecto, only: [assoc: 2]
   alias Api.Repo
 
   alias Api.Rooms.Room
