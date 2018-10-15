@@ -15,11 +15,11 @@ defmodule ApiWeb.Router do
     pipe_through [:api]
 
     post "/sessions", SessionController, :create
+    post "/sessions/refresh", SessionController, :refresh
     resources "/users", UserController, only: [:create]
 
     # FIXME: 後でやる
     # delete "/sessions", SessionController, :delete
-    # post "/sessions/refresh", SessionController, :refresh
   end
 
   scope "/api", ApiWeb do
