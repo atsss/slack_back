@@ -9,6 +9,7 @@ defmodule Api.Users.User do
     field :password_hash, :string
     field :username, :string
     field :password, :string, virtual: true
+    many_to_many :rooms, Api.Rooms.Room, join_through: "user_rooms"
 
     timestamps()
   end
