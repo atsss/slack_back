@@ -24,10 +24,8 @@ config :logger, :console,
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
-config :api, Api.Users.Guardian,
-  issuer: "Api",
-  ttl: {30, :days},
-  verify_issuer: true,
-  serializer: Api.Users.GuardianSerializer
+config :api, Api.Guardian,
+  issuer: "api",
+  secret_key: "5daO4Zr5L6BZg3nidm3BXctMPPuGXunVBjX46J1cSZpKE/gW115guClh53rg6ZSy"
 
 import_config "#{Mix.env}.exs"

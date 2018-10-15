@@ -1,6 +1,7 @@
 defmodule Api.Users.User do
   use Ecto.Schema
   import Ecto.Changeset
+  import Comeonin.Bcrypt, only: [hashpwsalt: 1]
 
 
   schema "users" do
@@ -15,24 +16,18 @@ defmodule Api.Users.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:username, :email])
-    |> validate_required([:username, :email])
+    |> cast(attrs, [:username, :email, :password])
+    |> validate_required([:username, :email, :password])
     |> unique_constraint(:username)
-    |> unique_constraint(:email)
-  end
-
-  def registration_changeset(struct, params) do
-    struct
-    |> changeset(params)
-    |> cast(params, [:password])
     |> validate_length(:password, min: 6, max: 100)
-    |> put_password_hash()
+    |> unique_constraint(:email)
+    |> put_password_hash
   end
 
   defp put_password_hash(changeset) do
     case changeset do
       %Ecto.Changeset{valid?: true, changes: %{password: password}} ->
-        put_change(changeset, :password_hash, Comeonin.Bcrypt.hashpwsalt(password))
+        put_change(changeset, :password_hash, hashpwsalt(password))
       _ ->
         changeset
     end

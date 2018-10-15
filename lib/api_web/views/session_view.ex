@@ -1,6 +1,5 @@
 defmodule ApiWeb.SessionView do
   use ApiWeb, :view
-  alias ApiWeb.SessionView
 
   def render("show.json", %{user: user, jwt: jwt}) do
     %{

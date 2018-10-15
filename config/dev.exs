@@ -46,5 +46,5 @@ config :api, Api.Repo,
   pool_size: 10
 
 # Gurdian for JWT
-config :guardian, Guardian,
-  secret_key: "5daO4Zr5L6BZg3nidm3BXctMPPuGXunVBjX46J1cSZpKE/gW115guClh53rg6ZSy"
+# config :api, Api.Users.Guardian,
+#   secret_key: "5daO4Zr5L6BZg3nidm3BXctMPPuGXunVBjX46J1cSZpKE/gW115guClh53rg6ZSy"
