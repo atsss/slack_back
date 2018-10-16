@@ -7,6 +7,7 @@ defmodule Api.Rooms.Room do
     field :name, :string
     field :topic, :string
     many_to_many :users, Api.Users.User, join_through: "user_rooms"
+    has_many :messages, Api.Messages.Message
 
     timestamps()
   end
