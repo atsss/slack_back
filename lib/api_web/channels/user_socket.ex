@@ -2,7 +2,7 @@ defmodule ApiWeb.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  channel "room:*", ApiWeb.RoomChannel
+  channel "rooms:*", ApiWeb.RoomChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket
@@ -40,5 +40,5 @@ defmodule ApiWeb.UserSocket do
   #     ApiWeb.Endpoint.broadcast("user_socket:#{user.id}", "disconnect", %{})
   #
   # Returning `nil` makes this socket anonymous.
-  def id(socket), do: "users_socket:#{socket.assigns.current_user.id}"
+  def id(socket), do: "users_socket:#{socket.assigns.guardian_default_resource.id}"
 end
