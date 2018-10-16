@@ -21,6 +21,14 @@ defmodule Api.Messages do
     Repo.all(Message)
   end
 
+  def list_messages_for(room_id) do
+    Message
+    |> where([m], m.room_id == ^room_id)
+    |> order_by([desc: :inserted_at, desc: :id])
+    |> preload(:user)
+    |> Repo.paginate()
+  end
+
   @doc """
   Gets a single message.
 
