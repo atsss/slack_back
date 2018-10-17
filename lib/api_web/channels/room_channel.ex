@@ -8,7 +8,7 @@ defmodule ApiWeb.RoomChannel do
 
   def join("rooms:" <> room_id, _params, socket) do
     room = Rooms.get_room!(room_id)
-    page = Messages.list_messages_for(room.id)
+    page = Messages.list_messages_of(room.id)
 
     response = %{
       room: Phoenix.View.render_one(room, ApiWeb.RoomView, "room.json"),
