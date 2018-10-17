@@ -16,7 +16,16 @@ defmodule ApiWeb.RoomChannel do
       pagination: ApiWeb.PaginationHelpers.pagination(page)
     }
 
+    send(self, :after_join)
     {:ok, response, assign(socket, :room, room)}
+  end
+
+  def handle_info(:after_join, socket) do
+    ApiWeb.Presence.track(socket, socket.assigns.guardian_default_resource.id, %{
+      user: Phoenix.View.render_one(socket.assigns.guardian_default_resource, ApiWeb.UserView, "user.json")
+    })
+    push(socket, "presence_state", ApiWeb.Presence.list(socket))
+    {:noreply, socket}
   end
 
   def handle_in("new_message", params, socket) do
